@@ -1,258 +1,719 @@
+/* =================================
+   DEFAULT DATA
+================================= */
 
-/* =========================
-   AMBIL SEMUA HALAMAN
-========================= */
+const defaultData = {
 
-const pages = document.querySelectorAll(".page");
+    mode: "birthday",
+
+    name: "Nama Dia",
+
+    birthdayTitle: "Happy Birthday!",
+
+    invitationTitle: "You're Invited",
+
+    message:
+        "Semoga hari ini menjadi salah satu hari terbaik dalam hidupmu. Semoga semua hal baik datang kepadamu.",
+
+    date: "",
+
+    time: "",
+
+    location: "",
+
+    theme: "purple",
+
+    background: "gradient"
+
+};
 
 
-/* =========================
-   FUNGSI PINDAH HALAMAN
-========================= */
+/* =================================
+   CURRENT DATA
+================================= */
 
-function showPage(id) {
-
-    pages.forEach(page => {
-
-        page.classList.remove("active");
-
-    });
+let data = {
+    ...defaultData
+};
 
 
-    const target =
-        document.getElementById(id);
+/* =================================
+   GET ELEMENTS
+================================= */
+
+const modeButtons =
+    document.querySelectorAll(".mode-btn");
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const titleInput =
+    document.getElementById("titleInput");
+
+const messageInput =
+    document.getElementById("messageInput");
+
+const dateInput =
+    document.getElementById("dateInput");
+
+const timeInput =
+    document.getElementById("timeInput");
+
+const locationInput =
+    document.getElementById("locationInput");
+
+const themeInput =
+    document.getElementById("themeInput");
+
+const backgroundInput =
+    document.getElementById("backgroundInput");
+
+const preview =
+    document.getElementById("preview");
+
+const birthdayPreview =
+    document.getElementById("birthdayPreview");
+
+const invitationPreview =
+    document.getElementById("invitationPreview");
+
+const modeLabel =
+    document.getElementById("modeLabel");
+
+const previewTitle =
+    document.getElementById("previewTitle");
+
+const previewName =
+    document.getElementById("previewName");
+
+const previewMessage =
+    document.getElementById("previewMessage");
+
+const invitationTitle =
+    document.getElementById("invitationTitle");
+
+const invitationName =
+    document.getElementById("invitationName");
+
+const previewDate =
+    document.getElementById("previewDate");
+
+const previewTime =
+    document.getElementById("previewTime");
+
+const previewLocation =
+    document.getElementById("previewLocation");
+
+const invitationMessage =
+    document.getElementById("invitationMessage");
+
+const invitationFields =
+    document.querySelector(".invitation-fields");
+
+const surpriseModal =
+    document.getElementById("surpriseModal");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const modalMessage =
+    document.getElementById("modalMessage");
+
+const gift =
+    document.getElementById("gift");
+
+const surpriseBtn =
+    document.getElementById("surpriseBtn");
+
+const closeModal =
+    document.getElementById("closeModal");
+
+const modalCloseButton =
+    document.getElementById("modalCloseButton");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+const resetBtn =
+    document.getElementById("resetBtn");
+
+const toast =
+    document.getElementById("toast");
 
 
-    if (target) {
+/* =================================
+   UPDATE PREVIEW
+================================= */
 
-        target.classList.add("active");
+function updatePreview() {
+
+    /*
+     * Birthday
+     */
+
+    previewTitle.textContent =
+        data.birthdayTitle;
+
+    previewName.textContent =
+        data.name;
+
+    previewMessage.textContent =
+        data.message;
+
+
+    /*
+     * Invitation
+     */
+
+    invitationTitle.textContent =
+        data.invitationTitle;
+
+    invitationName.textContent =
+        data.name;
+
+    invitationMessage.textContent =
+        data.message;
+
+
+    /*
+     * Date
+     */
+
+    if (data.date) {
+
+        const date =
+            new Date(data.date + "T00:00:00");
+
+        previewDate.textContent =
+            date.toLocaleDateString(
+                "id-ID",
+                {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+    } else {
+
+        previewDate.textContent =
+            "Belum ditentukan";
+
+    }
+
+
+    /*
+     * Time
+     */
+
+    previewTime.textContent =
+        data.time || "Belum ditentukan";
+
+
+    /*
+     * Location
+     */
+
+    previewLocation.textContent =
+        data.location || "Belum ditentukan";
+
+
+    /*
+     * Theme
+     */
+
+    preview.className =
+        `preview theme-${data.theme} background-${data.background}`;
+
+
+    /*
+     * Mode
+     */
+
+    if (data.mode === "birthday") {
+
+        birthdayPreview.classList.remove("hidden");
+
+        invitationPreview.classList.add("hidden");
+
+        modeLabel.textContent =
+            "Birthday";
+
+        invitationFields.style.display =
+            "block";
+
+    } else {
+
+        birthdayPreview.classList.add("hidden");
+
+        invitationPreview.classList.remove("hidden");
+
+        modeLabel.textContent =
+            "Invitation";
+
+        invitationFields.style.display =
+            "block";
 
     }
 
 }
 
 
-/* =========================
-   OPENING
-========================= */
+/* =================================
+   INPUT LISTENERS
+================================= */
 
-const startButton =
-    document.getElementById(
-        "start-button"
-    );
+nameInput.addEventListener(
+    "input",
+    function () {
 
+        data.name =
+            this.value || "Nama Dia";
 
-startButton.addEventListener(
-    "click",
-    () => {
-
-        showPage("birthday");
-
-        createConfetti();
+        updatePreview();
 
     }
 );
 
 
-/* =========================
-   PESAN
-========================= */
+titleInput.addEventListener(
+    "input",
+    function () {
 
-const messageButton =
-    document.getElementById(
-        "message-button"
-    );
+        if (data.mode === "birthday") {
 
+            data.birthdayTitle =
+                this.value || "Happy Birthday!";
 
-messageButton.addEventListener(
-    "click",
-    () => {
+        } else {
 
-        showPage("message");
+            data.invitationTitle =
+                this.value || "You're Invited";
 
-    }
-);
+        }
 
-
-/* =========================
-   GALERI
-========================= */
-
-const galleryButton =
-    document.getElementById(
-        "gallery-button"
-    );
-
-
-galleryButton.addEventListener(
-    "click",
-    () => {
-
-        showPage("gallery");
+        updatePreview();
 
     }
 );
 
 
-/* =========================
-   FINAL SURPRISE
-========================= */
+messageInput.addEventListener(
+    "input",
+    function () {
 
-const finalButton =
-    document.getElementById(
-        "final-button"
-    );
+        data.message =
+            this.value;
 
-
-finalButton.addEventListener(
-    "click",
-    () => {
-
-        showPage("final");
-
-        createConfetti();
+        updatePreview();
 
     }
 );
 
 
-/* =========================
-   REPLAY
-========================= */
+dateInput.addEventListener(
+    "change",
+    function () {
 
-const replayButton =
-    document.getElementById(
-        "replay-button"
-    );
+        data.date =
+            this.value;
 
-
-replayButton.addEventListener(
-    "click",
-    () => {
-
-        showPage("opening");
+        updatePreview();
 
     }
 );
 
 
-/* =========================
-   CONFETTI
-========================= */
+timeInput.addEventListener(
+    "change",
+    function () {
 
-function createConfetti() {
+        data.time =
+            this.value;
 
-    const container =
-        document.getElementById(
-            "confetti-container"
+        updatePreview();
+
+    }
+);
+
+
+locationInput.addEventListener(
+    "input",
+    function () {
+
+        data.location =
+            this.value;
+
+        updatePreview();
+
+    }
+);
+
+
+themeInput.addEventListener(
+    "change",
+    function () {
+
+        data.theme =
+            this.value;
+
+        updatePreview();
+
+    }
+);
+
+
+backgroundInput.addEventListener(
+    "change",
+    function () {
+
+        data.background =
+            this.value;
+
+        updatePreview();
+
+    }
+);
+
+
+/* =================================
+   MODE SWITCH
+================================= */
+
+modeButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                modeButtons.forEach(
+                    btn => {
+                        btn.classList.remove("active");
+                    }
+                );
+
+                this.classList.add("active");
+
+                data.mode =
+                    this.dataset.mode;
+
+
+                /*
+                 * Update title input
+                 */
+
+                if (data.mode === "birthday") {
+
+                    titleInput.value =
+                        data.birthdayTitle;
+
+                } else {
+
+                    titleInput.value =
+                        data.invitationTitle;
+
+                }
+
+
+                updatePreview();
+
+            }
         );
 
-
-    const jumlah = 100;
-
-
-    for (
-        let i = 0;
-        i < jumlah;
-        i++
-    ) {
-
-        const confetti =
-            document.createElement(
-                "div"
-            );
+    }
+);
 
 
-        confetti.classList.add(
-            "confetti"
-        );
+/* =================================
+   SURPRISE
+================================= */
+
+function openSurprise() {
+
+    modalTitle.textContent =
+        data.mode === "birthday"
+            ? `Happy Birthday, ${data.name}!`
+            : `You're Invited, ${data.name}!`;
 
 
-        confetti.style.left =
-            Math.random() * 100 + "%";
+    modalMessage.textContent =
+        data.message;
 
 
-        confetti.style.background =
-            getRandomColor();
+    surpriseModal.classList.remove(
+        "hidden"
+    );
+
+}
 
 
-        confetti.style.animationDuration =
-            Math.random() * 2 + 2 + "s";
+/* =================================
+   CLOSE MODAL
+================================= */
+
+function closeSurprise() {
+
+    surpriseModal.classList.add(
+        "hidden"
+    );
+
+}
 
 
-        confetti.style.animationDelay =
-            Math.random() * 0.5 + "s";
+/* =================================
+   SURPRISE BUTTON
+================================= */
+
+surpriseBtn.addEventListener(
+    "click",
+    openSurprise
+);
 
 
-        confetti.style.transform =
-            `rotate(${Math.random() * 360}deg)`;
+closeModal.addEventListener(
+    "click",
+    closeSurprise
+);
 
 
-        container.appendChild(
-            confetti
-        );
+modalCloseButton.addEventListener(
+    "click",
+    closeSurprise
+);
+
+
+surpriseModal.addEventListener(
+    "click",
+    function (event) {
+
+        if (event.target === surpriseModal) {
+
+            closeSurprise();
+
+        }
+
+    }
+);
+
+
+/* =================================
+   GIFT CLICK
+================================= */
+
+gift.addEventListener(
+    "click",
+    function () {
+
+        this.textContent = "🎉";
+
+        openSurprise();
 
 
         setTimeout(
             () => {
 
-                confetti.remove();
+                this.textContent = "🎁";
 
             },
-            4000
+            1200
         );
 
     }
-
-}
-
-
-/* =========================
-   WARNA CONFETTI
-========================= */
-
-function getRandomColor() {
-
-    const colors = [
-
-        "#ff8fab",
-        "#ffc8dd",
-        "#cdb4db",
-        "#a2d2ff",
-        "#bde0fe",
-        "#ffffff",
-        "#ffd166"
-
-    ];
+);
 
 
-    return colors[
-        Math.floor(
-            Math.random() *
-            colors.length
-        )
-    ];
+/* =================================
+   SAVE
+================================= */
 
-}
-
-
-/* =========================
-   KLIK HADIAH
-========================= */
-
-const gift =
-    document.getElementById(
-        "gift"
-    );
-
-
-gift.addEventListener(
+saveBtn.addEventListener(
     "click",
-    () => {
+    function () {
 
-        createConfetti();
+        localStorage.setItem(
+            "wishcraft-project",
+            JSON.stringify(data)
+        );
 
-        gift.textContent = "🎉";
+        showToast(
+            "Project berhasil disimpan!"
+        );
 
     }
 );
+
+
+/* =================================
+   LOAD
+================================= */
+
+function loadProject() {
+
+    const saved =
+        localStorage.getItem(
+            "wishcraft-project"
+        );
+
+
+    if (!saved) {
+
+        fillInputs();
+
+        updatePreview();
+
+        return;
+
+    }
+
+
+    try {
+
+        data = {
+            ...defaultData,
+            ...JSON.parse(saved)
+        };
+
+    } catch {
+
+        data = {
+            ...defaultData
+        };
+
+    }
+
+
+    fillInputs();
+
+    updatePreview();
+
+}
+
+
+/* =================================
+   FILL INPUTS
+================================= */
+
+function fillInputs() {
+
+    nameInput.value =
+        data.name;
+
+    titleInput.value =
+        data.mode === "birthday"
+            ? data.birthdayTitle
+            : data.invitationTitle;
+
+    messageInput.value =
+        data.message;
+
+    dateInput.value =
+        data.date;
+
+    timeInput.value =
+        data.time;
+
+    locationInput.value =
+        data.location;
+
+    themeInput.value =
+        data.theme;
+
+    backgroundInput.value =
+        data.background;
+
+
+    /*
+     * Update active mode button
+     */
+
+    modeButtons.forEach(
+        button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.mode === data.mode
+            );
+
+        }
+    );
+
+}
+
+
+/* =================================
+   RESET
+================================= */
+
+resetBtn.addEventListener(
+    "click",
+    function () {
+
+        const confirmed =
+            confirm(
+                "Reset semua customisasi?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        data = {
+            ...defaultData
+        };
+
+
+        localStorage.removeItem(
+            "wishcraft-project"
+        );
+
+
+        fillInputs();
+
+        updatePreview();
+
+        showToast(
+            "Project dikembalikan ke default."
+        );
+
+    }
+);
+
+
+/* =================================
+   TOAST
+================================= */
+
+function showToast(message) {
+
+    toast.textContent =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2200
+    );
+
+}
+
+
+/* =================================
+   START APP
+================================= */
+
+loadProject();

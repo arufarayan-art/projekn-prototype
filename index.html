@@ -1,313 +1,458 @@
-
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Birthday & Invitation Builder</title>
 
-    <title>Happy Birthday 🎂</title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Background dekorasi -->
-    <div class="background">
-        <span class="star star-1">✦</span>
-        <span class="star star-2">✧</span>
-        <span class="star star-3">✦</span>
-        <span class="star star-4">✧</span>
-        <span class="star star-5">✦</span>
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <header class="topbar">
+
+        <div class="logo">
+            <span>✦</span>
+            <strong>WishCraft</strong>
+        </div>
+
+        <div class="top-actions">
+
+            <button id="saveBtn" class="small-btn">
+                💾 Save
+            </button>
+
+            <button id="resetBtn" class="small-btn danger">
+                ↺ Reset
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==============================
+         MODE SELECTOR
+    =============================== -->
+
+    <section class="mode-selector">
+
+        <div>
+            <p class="eyebrow">CREATE YOUR OWN</p>
+
+            <h1>
+                Birthday & Invitation
+                <span>Builder</span>
+            </h1>
+
+            <p class="subtitle">
+                Buat halaman digital yang bisa kamu custom sendiri.
+            </p>
+        </div>
+
+        <div class="mode-buttons">
+
+            <button
+                class="mode-btn active"
+                data-mode="birthday"
+            >
+                🎂 Birthday
+            </button>
+
+            <button
+                class="mode-btn"
+                data-mode="invitation"
+            >
+                💌 Invitation
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         MAIN BUILDER
+    =============================== -->
+
+    <main class="builder">
+
+        <!-- ==========================
+             CUSTOMIZER
+        =========================== -->
+
+        <aside class="customizer">
+
+            <div class="panel-title">
+
+                <div>
+                    <p class="eyebrow">EDITOR</p>
+
+                    <h2>Customize</h2>
+                </div>
+
+                <span class="status-dot"></span>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <section class="editor-section">
+
+                <h3>Content</h3>
+
+
+                <label>
+                    Nama
+
+                    <input
+                        type="text"
+                        id="nameInput"
+                        placeholder="Nama penerima"
+                    >
+                </label>
+
+
+                <label>
+                    Judul
+
+                    <input
+                        type="text"
+                        id="titleInput"
+                        placeholder="Judul utama"
+                    >
+                </label>
+
+
+                <label>
+                    Pesan
+
+                    <textarea
+                        id="messageInput"
+                        rows="5"
+                        placeholder="Tulis pesan..."
+                    ></textarea>
+
+                </label>
+
+            </section>
+
+
+            <!-- EVENT -->
+
+            <section class="editor-section invitation-fields">
+
+                <h3>Event</h3>
+
+
+                <label>
+                    Tanggal
+
+                    <input
+                        type="date"
+                        id="dateInput"
+                    >
+                </label>
+
+
+                <label>
+                    Waktu
+
+                    <input
+                        type="time"
+                        id="timeInput"
+                    >
+                </label>
+
+
+                <label>
+                    Lokasi
+
+                    <input
+                        type="text"
+                        id="locationInput"
+                        placeholder="Lokasi acara"
+                    >
+                </label>
+
+            </section>
+
+
+            <!-- DESIGN -->
+
+            <section class="editor-section">
+
+                <h3>Design</h3>
+
+
+                <label>
+                    Tema warna
+
+                    <select id="themeInput">
+
+                        <option value="purple">
+                            Purple Dream
+                        </option>
+
+                        <option value="pink">
+                            Soft Pink
+                        </option>
+
+                        <option value="blue">
+                            Ocean Blue
+                        </option>
+
+                        <option value="green">
+                            Fresh Green
+                        </option>
+
+                        <option value="dark">
+                            Dark Night
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Background
+
+                    <select id="backgroundInput">
+
+                        <option value="gradient">
+                            Gradient
+                        </option>
+
+                        <option value="stars">
+                            Stars
+                        </option>
+
+                        <option value="minimal">
+                            Minimal
+                        </option>
+
+                    </select>
+
+                </label>
+
+            </section>
+
+
+            <!-- ACTION -->
+
+            <button
+                id="surpriseBtn"
+                class="surprise-btn"
+            >
+                ✨ Test Surprise
+            </button>
+
+        </aside>
+
+
+        <!-- ==========================
+             PREVIEW
+        =========================== -->
+
+        <section class="preview-area">
+
+            <div class="preview-header">
+
+                <span>
+                    LIVE PREVIEW
+                </span>
+
+                <span id="modeLabel">
+                    Birthday
+                </span>
+
+            </div>
+
+
+            <div
+                id="preview"
+                class="preview theme-purple background-gradient"
+            >
+
+                <!-- Birthday preview -->
+
+                <div
+                    id="birthdayPreview"
+                    class="preview-content"
+                >
+
+                    <div class="floating-decoration">
+                        ✦
+                    </div>
+
+                    <div class="gift" id="gift">
+                        🎁
+                    </div>
+
+                    <p class="preview-eyebrow">
+                        A LITTLE SURPRISE FOR
+                    </p>
+
+                    <h2 id="previewTitle">
+                        Happy Birthday!
+                    </h2>
+
+                    <h3 id="previewName">
+                        Nama Dia
+                    </h3>
+
+                    <p id="previewMessage">
+                        Semoga hari ini menjadi salah satu
+                        hari terbaik dalam hidupmu.
+                    </p>
+
+                    <button
+                        id="previewButton"
+                        class="preview-btn"
+                    >
+                        Open Surprise
+                    </button>
+
+                </div>
+
+
+                <!-- Invitation preview -->
+
+                <div
+                    id="invitationPreview"
+                    class="invitation-card hidden"
+                >
+
+                    <p class="preview-eyebrow">
+                        YOU ARE INVITED
+                    </p>
+
+                    <div class="invitation-icon">
+                        💌
+                    </div>
+
+                    <h2 id="invitationTitle">
+                        You're Invited
+                    </h2>
+
+                    <h3 id="invitationName">
+                        Nama Dia
+                    </h3>
+
+                    <div class="invitation-info">
+
+                        <div>
+                            <span>📅</span>
+
+                            <p id="previewDate">
+                                Belum ditentukan
+                            </p>
+                        </div>
+
+                        <div>
+                            <span>⏰</span>
+
+                            <p id="previewTime">
+                                Belum ditentukan
+                            </p>
+                        </div>
+
+                        <div>
+                            <span>📍</span>
+
+                            <p id="previewLocation">
+                                Belum ditentukan
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <p id="invitationMessage">
+                        Kami dengan senang hati
+                        mengundang kamu untuk hadir.
+                    </p>
+
+                    <button class="preview-btn">
+                        RSVP
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==============================
+         SURPRISE MODAL
+    =============================== -->
+
+    <div
+        id="surpriseModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-card">
+
+            <button
+                id="closeModal"
+                class="close-btn"
+            >
+                ×
+            </button>
+
+            <div class="modal-icon">
+                🎉
+            </div>
+
+            <p class="eyebrow">
+                SURPRISE
+            </p>
+
+            <h2 id="modalTitle">
+                Happy Birthday!
+            </h2>
+
+            <p id="modalMessage">
+                Semoga semua hal baik datang
+                ke dalam hidupmu.
+            </p>
+
+            <button
+                id="modalCloseButton"
+                class="preview-btn"
+            >
+                Aww, thanks ❤️
+            </button>
+
+        </div>
+
     </div>
 
 
-    <!-- =========================
-         HALAMAN 1
-    ========================== -->
+    <!-- ==============================
+         TOAST
+    =============================== -->
 
-    <section
-        id="opening"
-        class="page active"
+    <div
+        id="toast"
+        class="toast"
     >
-
-        <div class="opening-content">
-
-            <p class="small-text">
-                Hey...
-            </p>
-
-            <h1>
-                Ada sesuatu<br>
-                buat kamu.
-            </h1>
-
-            <p class="description">
-                Jangan langsung ditutup ya.
-                <br>
-                Coba buka dulu.
-            </p>
-
-            <button
-                id="start-button"
-                class="main-button"
-            >
-                Buka Surprise ✨
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         HALAMAN 2
-    ========================== -->
-
-    <section
-        id="birthday"
-        class="page"
-    >
-
-        <div class="birthday-content">
-
-            <div class="cake">
-                🎂
-            </div>
-
-            <p class="small-text">
-                Today is your day
-            </p>
-
-            <h1 class="birthday-title">
-                HAPPY<br>
-                BIRTHDAY!
-            </h1>
-
-            <p class="name">
-                Untuk <strong>[NAMA]</strong> 🎉
-            </p>
-
-            <p class="description">
-                Selamat ulang tahun!
-                <br>
-                Semoga hari ini menjadi salah satu
-                <br>
-                hari yang paling menyenangkan.
-            </p>
-
-            <button
-                id="message-button"
-                class="main-button"
-            >
-                Ada pesan buat kamu 💌
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         HALAMAN 3
-    ========================== -->
-
-    <section
-        id="message"
-        class="page"
-    >
-
-        <div class="message-content">
-
-            <p class="small-text">
-                A little message
-            </p>
-
-            <h2>
-                Untuk kamu.
-            </h2>
-
-            <div class="letter">
-
-                <p>
-                    Selamat ulang tahun! 🎂
-                </p>
-
-                <p>
-                    Di hari spesial ini, aku cuma mau
-                    bilang semoga kamu selalu dikelilingi
-                    hal-hal baik.
-                </p>
-
-                <p>
-                    Semoga apa yang kamu impikan
-                    perlahan bisa tercapai.
-                    Semoga kamu tetap menjadi diri kamu
-                    sendiri dan terus melangkah,
-                    meskipun kadang jalannya tidak mudah.
-                </p>
-
-                <p>
-                    Jangan lupa untuk menikmati setiap
-                    prosesnya.
-                </p>
-
-                <p class="signature">
-                    — From someone who cares about you.
-                </p>
-
-            </div>
-
-            <button
-                id="gallery-button"
-                class="main-button"
-            >
-                Lanjut ✨
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         HALAMAN 4
-    ========================== -->
-
-    <section
-        id="gallery"
-        class="page"
-    >
-
-        <div class="gallery-content">
-
-            <p class="small-text">
-                Some memories
-            </p>
-
-            <h2>
-                Sedikit tentang kamu.
-            </h2>
-
-            <div class="photo-grid">
-
-                <div class="photo-card">
-                    <div class="photo-placeholder">
-                        📸
-                    </div>
-
-                    <p>
-                        Foto pertama
-                    </p>
-                </div>
-
-                <div class="photo-card">
-                    <div class="photo-placeholder">
-                        🌟
-                    </div>
-
-                    <p>
-                        Foto kedua
-                    </p>
-                </div>
-
-                <div class="photo-card">
-                    <div class="photo-placeholder">
-                        💫
-                    </div>
-
-                    <p>
-                        Foto ketiga
-                    </p>
-                </div>
-
-            </div>
-
-            <p class="gallery-note">
-                Nanti bagian ini bisa diganti
-                dengan foto-foto asli.
-            </p>
-
-            <button
-                id="final-button"
-                class="main-button"
-            >
-                Last Surprise 🎁
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         HALAMAN 5
-    ========================== -->
-
-    <section
-        id="final"
-        class="page"
-    >
-
-        <div class="final-content">
-
-            <div
-                id="gift"
-                class="gift"
-            >
-                🎁
-            </div>
-
-            <p class="small-text">
-                One last thing...
-            </p>
-
-            <h1>
-                Happy Birthday,
-                <br>
-                <span>[NAMA]</span> ❤️
-            </h1>
-
-            <p class="final-message">
-                Semoga tahun ini membawa
-                lebih banyak cerita,
-                lebih banyak tawa,
-                dan lebih banyak alasan
-                untuk tersenyum.
-            </p>
-
-            <p class="final-message">
-                Stay awesome.
-                <br>
-                And keep being you. ✨
-            </p>
-
-            <button
-                id="replay-button"
-                class="secondary-button"
-            >
-                ↻ Mulai lagi
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- Container confetti -->
-    <div id="confetti-container"></div>
+        Berhasil disimpan!
+    </div>
 
 
     <script src="script.js"></script>
 
 </body>
-
 </html>
